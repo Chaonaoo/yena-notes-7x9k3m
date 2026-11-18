@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>最讨厌善良这句话 · 歌词精读</title>
+<style>
+/* SECTION: base */
+*,*::before,*::after{box-sizing:border-box}
+:root{
+  --paper:#faf5ec; --card:#fffdf8; --ink:#2c2a28; --sub:#6e6a64;
+  --coral:#d95d3f; --coral-soft:#f3d9cf; --line:#e7dfd2;
+  --star:#e8a800; --accent-bg:#fdf3e7; --zh:#7a7468;
+}
+html{scroll-behavior:smooth;background:var(--paper)}
+body{margin:0;background:transparent;color:var(--ink);
+  font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;line-height:1.6}
+.kr{font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+header,main,footer{position:relative;z-index:1}
+
+/* SECTION: wallpaper */
+#wall{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+#wall span{position:absolute;user-select:none}
+
+/* SECTION: header */
+header{padding:30px 4px 6px}
+.hwrap{display:flex;align-items:flex-start;gap:14px;flex-wrap:wrap}
+h1{margin:0;font-size:clamp(1.35rem,4.5vw,2rem);letter-spacing:.5px;flex:1 1 auto;min-width:0}
+h1 .kr{color:var(--coral)}
+.deco{flex:none;width:180px;height:78px;margin-top:4px}
+@media (max-width:560px){.deco{display:none}}
+.meta{margin:10px 0 0;color:var(--sub);font-size:.85rem}
+.meta b{color:var(--ink);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;
+  padding:8px 14px;font-size:.85rem;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:7px}
+.chip::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c,var(--sub))}
+.chip:hover{border-color:var(--c,#999)}
+
+/* SECTION: toolbar */
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;
+  margin:18px 0 8px;padding:12px 14px;background:var(--accent-bg);
+  border:1px solid var(--line);border-radius:12px;font-size:.85rem;color:var(--sub)}
+.toolbar label{display:flex;align-items:center;gap:7px;cursor:pointer;color:var(--ink);user-select:none}
+.toolbar input[type=checkbox]{width:18px;height:18px;accent-color:var(--coral);cursor:pointer}
+.count{margin-left:auto;font-weight:700;color:var(--coral)}
+.legend{margin:8px 4px 20px;font-size:.79rem;color:var(--sub)}
+.key{display:inline-block;width:11px;height:11px;border-radius:3px;margin:0 4px -1px 10px;border:1px solid rgba(0,0,0,.08)}
+.k-word{background:#fbe7c9}.k-part{background:#d9e6f2}.k-tail{background:#e8ddf1}
+#emptystar{display:none;margin:14px 4px;padding:14px;border:1px dashed var(--line);
+  border-radius:12px;background:var(--card);color:var(--sub);font-size:.86rem;text-align:center}
+body.onlystar #emptystar.show{display:block}
+
+/* SECTION: section heading */
+.sec{margin:30px 4px 10px;display:flex;align-items:baseline;gap:10px}
+.sec h2{margin:0;font-size:1.05rem;color:var(--c,var(--coral));white-space:nowrap}
+.sec span{font-size:.78rem;color:var(--sub)}
+.sec::after{content:"";flex:1;height:1px;background:var(--line);align-self:center;min-width:20px}
+.sec.hidesec{display:none}
+main{max-width:900px;margin:0 auto;padding:0 16px 64px}
+[data-sec=chorus]{--c:#d95d3f}
+[data-sec=v1]{--c:#4a7fa5}
+[data-sec=pre]{--c:#b08a2e}
+[data-sec=v2]{--c:#8a5fa8}
+[data-sec=br]{--c:#5c9e63}
+[data-sec=outro]{--c:#c2648f}
+
+/* SECTION: rows */
+.row{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c,var(--line));
+  border-radius:12px;margin:8px 0;position:relative}
+.row.hide{display:none}
+.row::after{content:"";position:absolute;left:-4px;top:10%;bottom:10%;width:4px;
+  border-radius:4px;background:var(--star);opacity:0;transition:opacity .2s}
+.row[data-star="1"]::after{opacity:.85}
+.head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,.92fr) 40px 40px;
+  gap:8px;align-items:center;width:100%;border:0;background:none;
+  padding:10px 10px 10px 14px;text-align:left;font:inherit;color:inherit}
+.head:hover{background:#fbf6ee}
+.kcol{display:flex;gap:8px;align-items:baseline;min-width:0}
+.idx{font-size:.72rem;color:var(--sub);flex:none;font-variant-numeric:tabular-nums}
+.krline{font-weight:700;font-size:1.02rem;color:#2e2b27;word-break:keep-all;overflow-wrap:anywhere}
+.rr{font-size:.8rem;color:#8a8378;font-family:ui-monospace,Consolas,"Courier New",monospace;
+  overflow-wrap:anywhere;min-width:0;cursor:copy;background:#f3ede2;border-radius:6px;
+  padding:2px 7px;border:1px solid #e6ddcc;justify-self:start;max-width:100%}
+.rr:hover{background:#ece3d2;border-color:#d8cbb4}
+.zh{font-size:.86rem;color:var(--zh);min-width:0}
+.star-btn{width:40px;height:40px;border:0;background:none;border-radius:9px;
+  color:#cfc6b6;font-size:1.3rem;line-height:1;cursor:pointer;padding:0}
+.star-btn:hover{background:#f3ead9}
+.row[data-star="1"] .star-btn{color:var(--star)}
+.star-btn.pop{animation:starpop .34s ease}
+@keyframes starpop{0%{transform:scale(1)}40%{transform:scale(1.45) rotate(12deg)}100%{transform:scale(1)}}
+.chev{width:30px;height:30px;margin:5px;border-radius:50%;background:var(--accent-bg);
+  color:var(--coral);display:flex;align-items:center;justify-content:center;
+  font-size:.95rem;transition:transform .22s;justify-self:end;flex:none}
+.row.open .chev{transform:rotate(90deg)}
+
+/* SECTION: detail card */
+.detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+.row.open .detail{grid-template-rows:1fr}
+.detail-in{overflow:hidden;min-height:0}
+.dbody{padding:14px 16px 16px;border-top:1px dashed var(--line)}
+.detail h3{margin:12px 0 6px;font-size:.85rem;color:var(--c,var(--coral))}
+.detail h3:first-child{margin-top:0}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:8px;margin:6px 0 12px}
+.dcell{border-radius:9px;padding:8px 10px;min-width:0;border:1px solid}
+.dcell b{display:block;font-size:1rem;font-weight:700;color:#2e2b27;margin-bottom:3px;word-break:keep-all}
+.dcell i{font-style:normal;color:var(--sub);font-size:.77rem}
+.dcell.c-word{background:#fdf3e0;border-color:#eeddc0}
+.dcell.c-part{background:#e9f0f7;border-color:#d4e0ec}
+.dcell.c-tail{background:#efe7f4;border-color:#ddcfe8}
+.detail ul{margin:4px 0 8px;padding-left:1.3em;font-size:.86rem}
+.detail li{margin:5px 0}
+.pron{background:#eef3ee;border:1px solid #d9e3d9;border-radius:9px;
+  padding:8px 11px;font-size:.81rem;color:#33502f;margin:6px 0}
+.tag{display:inline-block;background:var(--coral-soft);color:#8c3a20;border-radius:5px;
+  padding:1px 7px;font-size:.74rem;margin-right:5px;font-weight:600}
+.jumpnote{font-size:.8rem;color:var(--sub);margin-top:2px}
+.jumpnote a{color:var(--coral)}
+
+/* SECTION: toast */
+#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);
+  background:#33302b;color:#fff;padding:9px 18px;border-radius:999px;font-size:.83rem;
+  opacity:0;pointer-events:none;transition:.25s;z-index:5}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media (max-width:680px){
+  .head{grid-template-columns:minmax(0,1fr) 40px 40px;row-gap:3px;padding-right:8px}
+  .head .kcol,.rr,.zh{grid-column:1}
+  .chev{grid-row:1;grid-column:2;align-self:center}
+  .head .star-btn{grid-row:1;grid-column:3}
+  .zh{padding-right:4px}
+}
+</style>
+</head>
+<body>
+
+<!-- SECTION: wallpaper -->
+<div id="wall" aria-hidden="true"></div>
+
+<!-- SECTION: header -->
+<header>
+  <p style="font-size:.82rem;margin:0 0 8px"><a href="index.html" style="color:#d95d3f;text-decoration:none">← 返回歌单</a></p>
+  <div class="hwrap">
+    <h1>🐣 <span class="kr">착하다는 말이 제일 싫어</span>｜最讨厌善良这句话</h1>
+    <svg class="deco" viewBox="0 0 200 85" aria-hidden="true" fill="none" stroke-linecap="round">
+      <path d="M14 52 q1 -16 17 -16 q5 -13 20 -11 q13 2 15 13 q13 1 13 13 q0 7 -8 7 L22 58 q-8 -1 -8 -6 z" fill="#fdeeda" stroke="#e8b98a" stroke-width="1.6"/>
+      <path d="M84 26 q1 -10 11 -10 q4 -8 13 -7 q9 1 10 8 q9 1 9 9 q0 5 -6 5 L90 31 q-6 0 -6 -5 z" fill="#f9e3d5" stroke="#e0a987" stroke-width="1.4"/>
+      <path d="M128 60 q18 -26 56 -22 q-26 6 -34 20 q16 -7 30 -2 q-19 4 -26 13" fill="#fbe7c9" stroke="#d95d3f" stroke-width="1.6"/>
+      <path d="M140 68 q14 -14 34 -12" stroke="#d95d3f" stroke-width="1.2" opacity=".55"/>
+      <circle cx="118" cy="14" r="2.4" fill="#e8a800"/>
+      <circle cx="52" cy="18" r="1.8" fill="#d95d3f" opacity=".6"/>
+    </svg>
+  </div>
+  <p class="meta">🎵 <b>YENA（최예나）</b> · 迷你四辑《Blooming Wings》（2025.07.29）· 作詞：NATHAN / Roho / View / Youra / YENA · 歌词来源：genie 全文 × 打歌舞台词交叉核实</p>
+  <nav class="chips" aria-label="段落导航">
+    <a class="chip" href="#sec-chorus" data-sec="chorus">🎤 副歌</a>
+    <a class="chip" href="#sec-v1" data-sec="v1">🌧 Verse 1</a>
+    <a class="chip" href="#sec-pre" data-sec="pre">💧 Pre-Chorus</a>
+    <a class="chip" href="#sec-v2" data-sec="v2">🗯 Verse 2</a>
+    <a class="chip" href="#sec-br" data-sec="br">🕊 Bridge</a>
+    <a class="chip" href="#sec-outro" data-sec="outro">🌅 Outro</a>
+  </nav>
+  <div class="toolbar">
+    <label><input type="checkbox" id="fstar">⭐ 只看我标的句</label>
+    <button class="chip" type="button" id="expandall" style="--c:#8a8378">📖 全部展开 / 收起</button>
+    <span class="count" id="cnt">已标 0 句</span>
+  </div>
+  <p class="legend">📋 点击行右侧 <b>★</b> 收藏这句（存本机浏览器）· 点击灰色罗马音可直接复制 · 展开后：逐块拆解 <span class="key k-word"></span>词块 <span class="key k-part"></span>助词 <span class="key k-tail"></span>词尾 ＋ 词汇语法＋发音</p>
+  <div id="emptystar">还没有收藏任何句子 🐣 —— 点一行右侧的 ★ 就能把它加进来。</div>
+</header>
+
+<main>
+
+<!-- SECTION: chorus -->
+<div class="sec" id="sec-chorus" data-sec="chorus"><h2>🎤 Chorus</h2><span>开场副歌 · 标题句</span></div>
+
+<div class="row" id="l1" data-sec="chorus">
+  <div class="head">
+    <span class="kcol"><span class="idx">01</span><span class="krline kr">참 착하다는 그 말에</span></span>
+    <span class="rr">cham chakhaneun geu mare</span><span class="zh">就因为那句"你可真善良"</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">참</b><i>副词 · 真、确实</i></div>
+      <div class="dcell c-tail"><b class="kr">착하다는</b><i>착하다 + -다는 转述定语</i></div>
+      <div class="dcell c-word"><b class="kr">그 말</b><i>那句话</i></div>
+      <div class="dcell c-part"><b class="kr">-에</b><i>原因助词"因为…"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">🗣 引用</span><b class="kr">-다는</b>＝-다고 하다 作定语时的形态，转述别人说过的话：착하다는 말＝"（别人）说你善良"这话。同族 -라고 见《SMARTPHONE》외톨이라고 놀려대라지。</li>
+      <li>助词 <b class="kr">-에</b> 在此表原因："在那句话的作用下"→ 就因为那句话。</li>
+      <li><b class="kr">착하다</b>＝善良（固有词）。全曲的"反派"正是这个词带来的道德绑架。</li>
+    </ul>
+    <p class="pron">🔊 发音：착하다 [차카다]，收音 ㄱ 遇 ㅎ 紧化为 ㄲ；말에 [마레] 正常连音。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l2" data-sec="chorus">
+  <div class="head">
+    <span class="kcol"><span class="idx">02</span><span class="krline kr">보기 좋게 속아서</span></span>
+    <span class="rr">bogi joge sogaseo</span><span class="zh">我受骗受骗得如此干脆</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">보기 좋게</b><i>惯用 · 堂堂正正地</i></div>
+      <div class="dcell c-word"><b class="kr">속아</b><i>속다 被骗</i></div>
+      <div class="dcell c-tail"><b class="kr">-서</b><i>原因连接"所以"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">보기 좋게</b>＝字面"看得舒服地"，惯用为"漂漂亮亮、毫不含糊地"，这里反讽——被骗都骗得毫无悬念。</li>
+      <li><b class="kr">속다</b>＝被骗（속이다"欺骗"的对应自动词），接 -아/어 서 表原因，直承上一句"就因为那句话"。</li>
+      <li>副词化词尾 <b class="kr">-게</b>：形容词 + 게 修饰动词（《364》없게、《辞职》쓰게 웃음 同一形态）。</li>
+    </ul>
+    <p class="pron">🔊 发音：좋게 [조케]，ㅎ 遇 ㄱ 送气化为 ㅋ；속아서 [소가서] 正常连音。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l3" data-sec="chorus">
+  <div class="head">
+    <span class="kcol"><span class="idx">03</span><span class="krline kr">아픈걸</span></span>
+    <span class="rr">apeunggeol</span><span class="zh">好疼啊</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-tail"><b class="kr">아픈</b><i>아프다 + -ㄴ 定语</i></div>
+      <div class="dcell c-tail"><b class="kr">걸</b><i>= 것，感叹收尾</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">아프다</b>＝疼、难受（身体与心理通用）。</li>
+      <li><span class="tag">👂 辨析</span>这里的 <b class="kr">걸</b> 是 <b class="kr">것</b> 的口语缩略，作感叹尾"…啊"，带"说了也没人接"的委屈。⚠️ 不要当成后悔词尾 <b class="kr">~ㄹ걸</b>——本句没有时制含义。</li>
+    </ul>
+    <p class="pron">🔊 发音：아픈 [아픈]，收音 ㅍ 在 ㄴ 前鼻音化为 ㅁ。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l4" data-sec="chorus">
+  <div class="head">
+    <span class="kcol"><span class="idx">04</span><span class="krline kr">이 세상에서</span></span>
+    <span class="rr">i sesangeseo</span><span class="zh">在这世上</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">이</b><i>冠形词 · 这</i></div>
+      <div class="dcell c-word"><b class="kr">세상</b><i>世间（固有词）</i></div>
+      <div class="dcell c-part"><b class="kr">-에서</b><i>处所"在…之中"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">세상</b>＝世间、人世。<span class="tag">⚠️ 注意</span>它是<b>固有词</b>，词典不标汉字——虽然意思等于中文"世上／世间"，但<b>不要</b>因此把它记成汉字词，这是很多人踩过的坑。</li>
+      <li><b class="kr">-에서</b>＝场所/范围＋动作发生的舞台。이 세상에서 是下句嫌恶感的状语，"这世上我最讨厌…"</li>
+    </ul>
+    <p class="pron">🔊 发音：세상에서 [세상에서]，无音变。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l5" data-sec="chorus">
+  <div class="head">
+    <span class="kcol"><span class="idx">05</span><span class="krline kr">착하다는 말이 제일 싫어</span></span>
+    <span class="rr">chakhaneun mari jeil sireo</span><span class="zh">我最讨厌"善良"这句话</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">착하다는 말</b><i>主语"说你善良"这话</i></div>
+      <div class="dcell c-part"><b class="kr">이</b><i>主格助词</i></div>
+      <div class="dcell c-word"><b class="kr">제일</b><i>副词 · 最</i></div>
+      <div class="dcell c-word"><b class="kr">싫어</b><i>싫다 的 반말</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>标题句＝全曲论点：被夸善良＝默认签下"好人协议"，不能抱怨、不能拒绝，一旦委屈反倒成了罪。夸在这里＝起诉书 💌➡️📜。</li>
+      <li><b class="kr">제일</b>＝最（比 가장 更口语）。<b class="kr">싫다</b>＝讨厌，情感上的排斥而非单纯不喜欢。</li>
+      <li>引用定语 <b class="kr">-다는</b> 与第 01 句呼应，一句里把 착하다는 말 唱了两遍，钩子句。</li>
+    </ul>
+    <p class="pron">🔊 发音：말이 [마리] 连音；싫어 [실어]，收音 ㅅ 脱落。</p>
+  </div></div></div>
+</div>
+
+<!-- SECTION: verse1 -->
+<div class="sec" id="sec-v1" data-sec="v1"><h2>🌧 Verse 1</h2><span>后悔排比 · 罪案隐喻链</span></div>
+
+<div class="row" id="l6" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">06</span><span class="krline kr">비도 오는데 집에 있을걸</span></span>
+    <span class="rr">bido oneunde jibe isseulgeol</span><span class="zh">明明下着雨，我真该待在家里的</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-part"><b class="kr">비도</b><i>雨 + 도"偏偏还"（顶掉 가）</i></div>
+      <div class="dcell c-tail"><b class="kr">오는데</b><i>来（下雨用 오다）+ -는데</i></div>
+      <div class="dcell c-part"><b class="kr">집에</b><i>家 + 에 处所</i></div>
+      <div class="dcell c-tail"><b class="kr">있을걸</b><i>있다 + ~ㄹ걸 真该…</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">🎯 语感</span>도 把中性陈述变成委屈：비가 오는데 只是事实，<b class="kr">비도 오는데</b> 是"偏偏连天都作对"。도/만/조차/까지 会顶掉主格 가。</li>
+      <li><b class="kr">-는데</b>：动词现在时接 는데，形容词接 -ㄴ데，名词接 -인데（《364》시간인데）。只摆背景不说"但是"，转折留给听者。</li>
+      <li><b class="kr">~ㄹ걸</b>＝事后后悔"真该…就好了"（已发生、来不及）。Verse 1 三连悔（있을걸／올걸／말걸）的起手。</li>
+    </ul>
+    <p class="pron">🔊 发音：있을걸 [이쓸껄]，ㄹ 后 ㄱ 紧音化。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l7" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">07</span><span class="krline kr">이런 결말일 거라면</span></span>
+    <span class="rr">ireon gyeolmir georamyeon</span><span class="zh">如果结局会是这样</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">이런</b><i>이렇다 定语"这样的"</i></div>
+      <div class="dcell c-word"><b class="kr">결말</b><i>结局（汉字词：結局）</i></div>
+      <div class="dcell c-tail"><b class="kr">일</b><i>이다 + -ㄹ 推测将来</i></div>
+      <div class="dcell c-tail"><b class="kr">거라면</b><i>= 것 + 이라면</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">거＝것</b> 的口语缩略；이다 的条件形 -이라면 缩成 -라면。</li>
+      <li>挂 <b class="kr">ㄹ</b>（결말일 거라면）＝"如果将会是这样"；挂 <b class="kr">ㄴ/인</b>（죄인 거라면）＝"如果本来就是"。时态只差一个定语词尾。</li>
+      <li>이다 全曲三形态：-인데（背景）／-(이)ㄴ（定语）／-(이)라면（假设）。</li>
+    </ul>
+    <p class="pron">🔊 发音：결말 [결말]；이라면 连读 [이라며]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l8" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">08</span><span class="krline kr">아차 하고 네 우산은 놓고 올걸</span></span>
+    <span class="rr">acha hago ne usaneun noko olgeol</span><span class="zh">哎呀一声，连你的伞都该留下再走的</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">아차 하고</b><i>叹词 + 하고"咯噔一下"</i></div>
+      <div class="dcell c-word"><b class="kr">네 우산은</b><i>너의 缩略；은 带对比</i></div>
+      <div class="dcell c-tail"><b class="kr">놓고</b><i>놓다 放下 + -고</i></div>
+      <div class="dcell c-tail"><b class="kr">올걸</b><i>오다 + ~ㄹ걸</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>叹词可直接接 하고 作状语：아차 하고"哎呀一声（反应过来）"。意识到＝太晚，所以只能后悔 ☔。</li>
+      <li><b class="kr">놓고 오다</b>＝先放下、再回来（-고 表两动作先后）；对照《It was love》들려오면 的 -아/어 오다（一个动作持续到现在）。口诀：-고 两件事，-아/어 一件事带方向。</li>
+      <li>오다 还是 가다 取决于说话位置：人已在家里回望，所以是 올걸。</li>
+      <li><span class="tag">🎬 剧情</span>伞是关系的信物——带回家＝给"还伞"留了借口。她后悔的不是伞，是自己没舍得断。</li>
+    </ul>
+    <p class="pron">🔊 发音：⚠️ 놓고 读 [노코]（놓다 是 ㅎ 不规则，遇 ㄱ 送气化）；올걸 [올껄]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l9" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">09</span><span class="krline kr">잘해준 게 죄인 거라면</span></span>
+    <span class="rr">jalhaeun ge coin georamyeon</span><span class="zh">如果对（你）好是一种罪的话</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-tail"><b class="kr">잘해준</b><i>잘 + 해 주다 + -ㄴ</i></div>
+      <div class="dcell c-tail"><b class="kr">게</b><i>= 것이"这件事"</i></div>
+      <div class="dcell c-tail"><b class="kr">죄 ＋ 인</b><i>罪 + 이다 的定语 -(이)ㄴ</i></div>
+      <div class="dcell c-tail"><b class="kr">거라면</b><i>= 것 + 이라면</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">👂 听力陷阱</span><b class="kr">죄인</b> 不是汉字词"罪人"！断法是 죄 ＋ 인（이다"是"的定语形）：죄인 거＝"属于'罪'的那种东西"。真"罪人"要说 죄인이다，后面不跟 거。</li>
+      <li><b class="kr">-아/어 주다</b> 辅进动词：해 주다＝对…好、给好处；잘해준 게＝"我一直以来对你好的这件事"。</li>
+      <li>게＝것 缩略再复现（다를 게 없는／아쉬울 거도／네 거）。</li>
+    </ul>
+    <p class="pron">🔊 发音：죄 的 ㅚ 与现代 ㅐ 合流读 [죄]；잘해준 게 [잘해준게] 连音。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l10" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">10</span><span class="krline kr">꼼짝없이 나 벌 받는 걸까</span></span>
+    <span class="rr">kkomjjageopsi na beol banneun geolkka</span><span class="zh">难道我只能动弹不得地挨罚吗</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">꼼짝없이</b><i>꼼짝 + -없이 束手无策地</i></div>
+      <div class="dcell c-word"><b class="kr">나</b><i>我（主格省略）</i></div>
+      <div class="dcell c-word"><b class="kr">벌(을) 받는</b><i>罚 + 받다，宾格省略</i></div>
+      <div class="dcell c-tail"><b class="kr">걸까</b><i>= -는 것일까"莫非…吗"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>⚠️ <b class="kr">-없이</b> 这里不是"没有X"，是凝固在 꼼짝없이 里表"丝毫不能动"。对照 뒤돌아보지 않고（主动没回头）、잡지도 못해（不能）——三种否定她选了最被动的那个。</li>
+      <li>口语宾格脱落：벌 을→벌（同《辞职》밥 먹을까요、고개 젓고）。</li>
+      <li><span class="tag">❓ 问句家族</span>-(으)ㄹ까 将来自问（할까）／-는 걸까 现在处境（本句）／-ㄴ 걸까 性质判断／-았/었을까 过去（언제부터였을까）。</li>
+      <li><span class="tag">⛓ 隐喻链</span>죄（09 起诉）→ 벌（本句 判决）→ 묶여（11 捆绑）→ 못해（12 结案），四行走完一桩"善良罪"的司法流程 ⚖️。</li>
+    </ul>
+    <p class="pron">🔊 发音：꼼짝없이 [꼼짜그없이] 连音；벌 받는 [벌빠는]，ㄹ 后 ㅂ 半紧化；걸까 [걸까]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l11" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">11</span><span class="krline kr">두 손이 꽉 묶여서</span></span>
+    <span class="rr">du soni kkwak mukkieseo</span><span class="zh">双手被紧紧捆住</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">두</b><i>数词 · 两（固有词）</i></div>
+      <div class="dcell c-part"><b class="kr">손이</b><i>手 + 主格</i></div>
+      <div class="dcell c-word"><b class="kr">꽉</b><i>副词 · 紧紧地</i></div>
+      <div class="dcell c-tail"><b class="kr">묶여서</b><i>묶이다 被绑 + -어서</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">묶이다</b>＝묶다（绑）的被动形，+ -어서 表样态/原因："被捆成这样，所以…"</li>
+      <li><b class="kr">꽉</b>＝紧紧地——《364》"꽉 채워줄래"同一个 꽉，复现词。</li>
+      <li>두/세 只用于固有词量词前（두 손），汉字数词读 이 손。</li>
+    </ul>
+    <p class="pron">🔊 发音：묶여 [묵쒀]，紧音连半元音。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l12" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">12</span><span class="krline kr">잡지도 못해</span></span>
+    <span class="rr">japjido mothae</span><span class="zh">连抓都抓不住</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">잡다</b><i>抓、握（固有词）</i></div>
+      <div class="dcell c-part"><b class="kr">-지도</b><i>-지 + 도"连…也"</i></div>
+      <div class="dcell c-tail"><b class="kr">못해</b><i>-지 못하다 没能</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">-지 못하다</b>＝能力上做不到。对照《It was love》솔직하지 못해서（没能坦白）。</li>
+      <li><b class="kr">도</b> 夹在 -지 中间强化："连抓（伞／他／自己的命运）都做不到"——全曲行动力的最低点 🫳。</li>
+    </ul>
+    <p class="pron">🔊 发音：잡지도 [잡찌도]，ㅈ 遇 ㅈ 紧化；못해 [모태]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l13" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">13</span><span class="krline kr">나 좀 봐달란 말야</span></span>
+    <span class="rr">na jom bdalan marya</span><span class="zh">我说的就是"看看我吧"</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">나</b><i>我</i></div>
+      <div class="dcell c-word"><b class="kr">좀</b><i>稍微、一点</i></div>
+      <div class="dcell c-tail"><b class="kr">봐달란</b><i>봐 달라 + -ㄴ</i></div>
+      <div class="dcell c-tail"><b class="kr">말야</b><i>= 말이야"…我是说"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">🙏 请求</span><b class="kr">-아/어 달다</b>＝请求对方为自己做：보다→봐 달라"求你看看我"。与 -아/어 주다（我为对方做）互为镜像。</li>
+      <li><b class="kr">-란 말야</b>＝-(으)라는 말야 的缩略："…我指的就是"，强调她真正想说的是这句，不是客套。</li>
+    </ul>
+    <p class="pron">🔊 发音：봐달란 [바달란] 正常连音；말야 [마랴]。</p>
+  </div></div></div>
+</div>
+
+<!-- SECTION: prechorus -->
+<div class="sec" id="sec-pre" data-sec="pre"><h2>💧 Pre-Chorus</h2><span>眼泪特写 · 差点语法</span></div>
+
+<div class="row" id="l14" data-sec="pre">
+  <div class="head">
+    <span class="kcol"><span class="idx">14</span><span class="krline kr">꾹꾹 삼켜 체할 뻔했던 눈물이</span></span>
+    <span class="rr">kkukkkuk samkyeo chehal ppeontaessdeon nunmuri</span><span class="zh">死死咽下、差点噎住的泪水</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">꾹꾹</b><i>꾹 重叠"使劲地"</i></div>
+      <div class="dcell c-word"><b class="kr">삼켜</b><i>삼키다 咽下</i></div>
+      <div class="dcell c-tail"><b class="kr">체할 뻔했던</b><i>差点噎住的</i></div>
+      <div class="dcell c-part"><b class="kr">눈물이</b><i>眼泪 + 主格</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>꾹 참다（《364》"꾹 참을래도"）的 꾹 升级为 꾹꾹，忍耐强度翻倍。</li>
+      <li><span class="tag">😅 差点</span><b class="kr">-(으)ㄹ 뻔하다</b>＝差点就…；叠 -던 过去回忆体：当时差点没忍住。</li>
+      <li><b class="kr">체하다</b>＝噎住／积食（汉字词：滯），与"体"无关 ⚠️。</li>
+      <li>眼泪当主语，引出下句"从指缝溢出来"——她把它写成一个有体积的、自己会跑的东西 🌊。</li>
+    </ul>
+    <p class="pron">🔊 发音：삼켜 [삼켜]；뻔했던 [뻔헀던]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l15" data-sec="pre">
+  <div class="head">
+    <span class="kcol"><span class="idx">15</span><span class="krline kr">손 틈새로 자꾸만 빠져나와</span></span>
+    <span class="rr">son teumsaero jakkuman ppajyeonawa</span><span class="zh">总是一点点从指缝间溢出来</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-part"><b class="kr">손 틈새로</b><i>指缝 + -로 经由</i></div>
+      <div class="dcell c-word"><b class="kr">자꾸만</b><i>总是不停地</i></div>
+      <div class="dcell c-tail"><b class="kr">빠져나와</b><i>漏出 + -어 오다</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">틈</b>＝缝隙（固有词）——《364》"1cm 틈도 절대 없게"复现词。</li>
+      <li><b class="kr">빠져나오다</b>＝复合动词"漏出来"，-어 오다 表持续朝说话人方向，正是她"越忍越出"的失控感。</li>
+      <li><b class="kr">-로</b>＝经由、穿过（路径）。</li>
+    </ul>
+    <p class="pron">🔊 发音：빠져 [빠저]；나와 [나와]。</p>
+  </div></div></div>
+</div>
+
+<!-- SECTION: verse2 -->
+<div class="sec" id="sec-v2" data-sec="v2"><h2>🗯 Verse 2</h2><span>吐槽段 · 反诘语气集中</span></div>
+
+<div class="row" id="l16" data-sec="v2">
+  <div class="head">
+    <span class="kcol"><span class="idx">16</span><span class="krline kr">달려가진 말걸</span></span>
+    <span class="rr">dallyeogajin malgeol</span><span class="zh">真该别追出去的</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">달려가</b><i>달리다 + 가다"飞奔出去"</i></div>
+      <div class="dcell c-part"><b class="kr">-진</b><i>= -지（强调）</i></div>
+      <div class="dcell c-tail"><b class="kr">말걸</b><i>~지 말걸 真该别…</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">~지 말걸</b>＝-ㄹ걸 的否定式"真该别…"，口语缩成 말걸。</li>
+      <li>第三处后悔排比：있을걸（该留家）→ 올걸（该留伞）→ 말걸（该停下脚步），悔意逐级加码 📈。</li>
+    </ul>
+    <p class="pron">🔊 发音：달려가진 [달려가진]；말걸 [말껄]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l17" data-sec="v2">
+  <div class="head">
+    <span class="kcol"><span class="idx">17</span><span class="krline kr">안아주면서 고맙다면서</span></span>
+    <span class="rr">anajumyeonseo gomaptamyeonseo</span><span class="zh">一边抱着我 一边说谢谢</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-tail"><b class="kr">안아주면서</b><i>안아 주다 + -면서</i></div>
+      <div class="dcell c-tail"><b class="kr">고맙다면서</b><i>고맙다 + -(ㄴ)다면서</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">✌️ 同时</span><b class="kr">-(으)면서</b>＝一边…一边（两个动作并行）。对照《364》전화하다 보면 的 -다 보면（做着做着就…），两族并列。</li>
+      <li><b class="kr">안아주다</b>＝안다（抱）+ -아/어 주다（为对方）——"抱"也是给的好。</li>
+      <li>尾句 <b class="kr">-다면서</b> 转述带难以置信："还嘴上说着谢谢"。动作与话互相打脸，正是下句"앞뒤 안 맞잖아"的靶子 🎯。</li>
+    </ul>
+    <p class="pron">🔊 发音：면서 [며서]；고맙다 [고맙따]，ㅂ 后 ㄷ 紧化。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l18" data-sec="v2">
+  <div class="head">
+    <span class="kcol"><span class="idx">18</span><span class="krline kr">앞뒤 안 맞잖아</span></span>
+    <span class="rr">apdwi an majjana</span><span class="zh">这不是自相矛盾嘛</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">앞뒤</b><i>前 + 后（固有词复合）</i></div>
+      <div class="dcell c-word"><b class="kr">안</b><i>副词否定"不"</i></div>
+      <div class="dcell c-tail"><b class="kr">맞잖아</b><i>맞다 + -잖아</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">앞뒤가 안 맞다</b>＝固定搭配，前后矛盾。</li>
+      <li><span class="tag">😤 吐槽</span><b class="kr">-잖아</b>＝"不是…嘛"——本曲已三连（맞잖아／흔하잖아），韩国人日常怼人与自嘲的万能尾。</li>
+      <li>안 表意愿/状态不符，못 表能力不足（对比第 12 句 잡지도 못해）。</li>
+    </ul>
+    <p class="pron">🔊 发音：맞잖아 [맏짜나]，收音 ㅈ 遇 ㅈ 紧化为 ㅉ。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l19" data-sec="v2">
+  <div class="head">
+    <span class="kcol"><span class="idx">19</span><span class="krline kr">좀 너무한 거 아냐?</span></span>
+    <span class="rr">jom neomuhan geo anya</span><span class="zh">是不是有点过分了？</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">좀</b><i>有点</i></div>
+      <div class="dcell c-tail"><b class="kr">너무한</b><i>너무하다 + -ㄴ 定语</i></div>
+      <div class="dcell c-tail"><b class="kr">거</b><i>= 것"…的事"</i></div>
+      <div class="dcell c-tail"><b class="kr">아냐?</b><i>= 아니야? 的口语</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">너무하다</b>＝过分；⚠️ <b class="kr">아냐?</b>＝아니야? 的缩略，不是"呀哪"。</li>
+      <li>与上一句连成完整吐槽：「这不是自相矛盾嘛／是不是太过分了？」——全曲唯一直接骂出口的两行 😤。</li>
+    </ul>
+    <p class="pron">🔊 发音：거 [거]；아냐 [아냐]。</p>
+  </div></div></div>
+</div>
+
+<!-- SECTION: bridge -->
+<div class="sec" id="sec-br" data-sec="br"><h2>🕊 Bridge</h2><span>情感落点 · 委屈摊牌</span></div>
+
+<div class="row" id="l20" data-sec="br">
+  <div class="head">
+    <span class="kcol"><span class="idx">20</span><span class="krline kr">웃어줄걸</span></span>
+    <span class="rr">usseo julggeol</span><span class="zh">我本该笑着的</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">웃어</b><i>웃다 笑 + -어</i></div>
+      <div class="dcell c-tail"><b class="kr">줄</b><i>주다 为对方 + -ㄹ</i></div>
+      <div class="dcell c-tail"><b class="kr">걸</b><i>~ㄹ걸 真该…</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>三件已学语法一次打包：웃다 + -어 주다 + ~ㄹ걸＝"我当时真该对你笑着就好的" 🧩。</li>
+      <li>与下句哭对照（울어도）：笑／哭的选择＝全曲后悔的根源——她没能给一个体面的告别。</li>
+    </ul>
+    <p class="pron">🔊 发音：웃어 [우서]，收音 ㅅ 正常连音（不是脱落）；줄걸 [줄껄]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l21" data-sec="br">
+  <div class="head">
+    <span class="kcol"><span class="idx">21</span><span class="krline kr">이렇게 울어도</span></span>
+    <span class="rr">ireoke uriedo</span><span class="zh">就算哭成这样</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">이렇게</b><i>这样（이+렇+게）</i></div>
+      <div class="dcell c-tail"><b class="kr">울어도</b><i>울다 哭 + -어도</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">-아/어도</b>＝即使…也（让步）；울다 元音词干直接加 -어도。与《364》"봐도 봐도 모자라"同属 -도 让步家族。</li>
+      <li>接下句质问："我哭成这样，你为什么还不懂我"——让步句把委屈推到最高点 🥲。</li>
+    </ul>
+    <p class="pron">🔊 发音：울어도 [우러도]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l22" data-sec="br">
+  <div class="head">
+    <span class="kcol"><span class="idx">22</span><span class="krline kr">날 왜 몰라</span></span>
+    <span class="rr">nal wae molla</span><span class="zh">为什么就是不懂我</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-part"><b class="kr">날</b><i>= 나를 我（宾格缩略）</i></div>
+      <div class="dcell c-word"><b class="kr">왜</b><i>为什么</i></div>
+      <div class="dcell c-word"><b class="kr">몰라</b><i>모르다 不懂（不规则）</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">날</b>＝나를 的口语缩略，同类 넌＝너는、널＝너를。</li>
+      <li>⚠️ <b class="kr">모르다</b> 是著名不规则：모르 + 아 → 몰라，词干 ㅡ 脱落。别按规则拼成 모라。</li>
+    </ul>
+    <p class="pron">🔊 发音：날 [날]；몰라 [몰라]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l23" data-sec="br">
+  <div class="head">
+    <span class="kcol"><span class="idx">23</span><span class="krline kr">좋은 사람 해본 것도</span></span>
+    <span class="rr">joheun saram haebon geotdo</span><span class="zh">"做好人"这件事，我也是…</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">좋은 사람</b><i>好人（好·人）</i></div>
+      <div class="dcell c-tail"><b class="kr">해본</b><i>하다 + 아 보다 + ㄴ</i></div>
+      <div class="dcell c-tail"><b class="kr">것도</b><i>것 + 도，本句写全称</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">🧪 尝试</span><b class="kr">-아/어 보다</b>＝试过做某事；해 본 것→해본 것도＝"当好人这件事（我也是头一回）"。</li>
+      <li>⚠️ 本句写 <b class="kr">것</b> 全称而非 거/게/걸，配合下句重读"처음이었어"——歌词用写法本身打重音。</li>
+      <li>与 09 的 잘해준 게 呼应：一个"对你好"（动词），一个"当好人"（身份）——善良被拆成两面。</li>
+      <li><b class="kr">사람</b>＝人（固有词，汉字人读 인）。</li>
+    </ul>
+    <p class="pron">🔊 发音：해본 [해본]；사람 [사람]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l24" data-sec="br">
+  <div class="head">
+    <span class="kcol"><span class="idx">24</span><span class="krline kr">처음이었어</span></span>
+    <span class="rr">cheoumeisseo</span><span class="zh">头一回啊</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">처음</b><i>最初、头一回（固有词）</i></div>
+      <div class="dcell c-tail"><b class="kr">-이었어</b><i>이다 过去时 반말</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>名词 + 이다 的过去反语：처음 + 이었 + 어。元音后用 이었다，故必须带 이。</li>
+      <li>全句"当好人我也是第一次啊"＝整首歌的辩护书 🛡，重拍落在这里，情感最低也最高的一拍。</li>
+    </ul>
+    <p class="pron">🔊 发音：처음이었어 [처미써]，连音两拍：음+이→미，있+었→써。</p>
+  </div></div></div>
+</div>
+
+<!-- SECTION: outro -->
+<div class="sec" id="sec-outro" data-sec="outro"><h2>🌅 Outro</h2><span>收束宣言</span></div>
+
+<div class="row" id="l25" data-sec="outro">
+  <div class="head">
+    <span class="kcol"><span class="idx">25</span><span class="krline kr">그래도 이젠</span></span>
+    <span class="rr">geuraedo ijen</span><span class="zh">但即便如此，现在起</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">그래도</b><i>尽管如此</i></div>
+      <div class="dcell c-word"><b class="kr">이젠</b><i>= 이제는"现在（起）"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>两个词共同完成时态切换：前面全在回忆委屈，这里一脚跨进"从现在开始"，接最终宣告 🚪。</li>
+      <li><b class="kr">그래도</b>＝그＋래＋도；<b class="kr">이젠</b>＝이제는 的缩略。</li>
+    </ul>
+    <p class="pron">🔊 发音：그래도 [그래도]；이젠 [이젠]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="l26" data-sec="outro">
+  <div class="head">
+    <span class="kcol"><span class="idx">26</span><span class="krline kr">착하다는 말이 제일 싫어（重复）</span></span>
+    <span class="rr">chakhaneun mari jeil sireo</span><span class="zh">我最讨厌"善良"这句话</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">착하다는 말</b><i>主语"说你善良"这话</i></div>
+      <div class="dcell c-part"><b class="kr">이</b><i>主格助词</i></div>
+      <div class="dcell c-word"><b class="kr">제일</b><i>副词 · 最</i></div>
+      <div class="dcell c-word"><b class="kr">싫어</b><i>싫다 的 반말</i></div>
+    </div>
+    <h3>🎭 这句在不同位置的意义变化</h3>
+    <ul>
+      <li>歌词与第 05 句完全相同（结构可点 <a href="#l5" data-jump>第 05 句</a> 复习），但 Outro 再唱时语义已从"诉苦"升级为"宣言"——同一句，立场变了。</li>
+      <li>前面接 그래도 이젠（25），所以这里的 싫어 是决定，不是抱怨 💪。</li>
+    </ul>
+    <p class="pron">🔊 发音：말이 [마리]；싫어 [실어]。</p>
+  </div></div></div>
+</div>
+
+</main>
+
+<!-- SECTION: footer -->
+<footer style="max-width:900px;margin:36px auto 0;padding:16px 20px 40px;border-top:1px solid #e7dfd2;font-size:.76rem;color:#6e6a64;line-height:1.8">
+  <p>🐣 本页面仅作韩语学习用途；歌词版权归原作者及唱片公司（作詞：NATHAN / Roho / View / Youra / YENA）所有。</p>
+</footer>
+
+<div id="toast" role="status"></div>
+
+<!-- SECTION: script -->
+<script>
+(function(){
+  /* SECTION: egg wallpaper */
+  var wall=document.getElementById('wall');
+  var eggs=[
+    [3,6,30,.10,-14,'🐣'],[71,9,22,.08,10,'🐣'],[28,14,18,.07,-6,'🐥'],[88,16,34,.09,14,'🐣'],
+    [12,30,24,.08,8,'🐣'],[54,26,16,.07,-12,'🪺'],[81,33,20,.08,4,'🐥'],[8,44,32,.09,-8,'🐣'],
+    [42,41,18,.07,16,'🐣'],[68,47,26,.08,-10,'🐣'],[22,55,20,.07,12,'🐥'],[92,52,18,.07,-4,'🐣'],
+    [15,66,30,.09,10,'🐣'],[50,63,16,.06,-14,'🪺'],[76,70,24,.08,6,'🐣'],[5,75,18,.07,-8,'🐥'],
+    [33,80,26,.08,14,'🐣'],[62,84,20,.07,-6,'🐣'],[85,88,30,.09,8,'🐣'],[18,90,16,.06,10,'🐥'],
+    [45,93,24,.07,-10,'🐣'],[72,95,18,.06,12,'🐣']
+  ];
+  eggs.forEach(function(e){
+    var s=document.createElement('span');
+    s.textContent=e[5];
+    s.style.left=e[0]+'%'; s.style.top=e[1]+'%';
+    s.style.fontSize=e[2]+'px'; s.style.opacity=e[3];
+    s.style.transform='rotate('+e[4]+'deg)';
+    wall.appendChild(s);
+  });
+
+  /* SECTION: storage */
+  var KEY='yena-chakhan-girl-stars-v2';
+  var rows=[].slice.call(document.querySelectorAll('.row'));
+  var secs=[].slice.call(document.querySelectorAll('.sec'));
+  var chk=document.getElementById('fstar');
+  var cnt=document.getElementById('cnt');
+  var empty=document.getElementById('emptystar');
+  var store={};
+  function load(){ try{ var v=localStorage.getItem(KEY); if(v){store=JSON.parse(v)||{};} }catch(e){ store={}; } }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){} }
+
+  /* SECTION: toast */
+  var toast=document.getElementById('toast'),tt=null;
+  function say(msg){ toast.textContent=msg; toast.classList.add('show');
+    clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('show')},1400); }
+
+  /* SECTION: render state */
+  function paint(){
+    var n=0;
+    rows.forEach(function(r){
+      var on=store[r.id]==='1';
+      r.setAttribute('data-star',on?'1':'0');
+      var btn=r.querySelector('.star-btn');
+      if(btn){ btn.setAttribute('aria-pressed',on?'true':'false'); }
+      if(on){ n++; }
+    });
+    cnt.textContent='⭐ 已标 '+n+' / 共 '+rows.length+' 句';
+    applyFilter();
+  }
+  function applyFilter(){
+    var only=chk.checked;
+    document.body.classList.toggle('onlystar',only);
+    var vis=0;
+    rows.forEach(function(r){
+      var on=store[r.id]==='1';
+      r.classList.toggle('hide',only&&!on);
+      if(!(only&&!on)){ vis++; }
+    });
+    empty.classList.toggle('show',only&&vis===0);
+    secs.forEach(function(s){
+      var has=false;
+      rows.forEach(function(r){
+        var sec=null;
+        var p=r.previousElementSibling;
+        while(p){ if(p.classList&&p.classList.contains('sec')){sec=p;break;} p=p.previousElementSibling; }
+        if(sec===s&&!r.classList.contains('hide')){ has=true; }
+      });
+      s.classList.toggle('hidesec',only&&!has);
+    });
+  }
+
+  /* SECTION: interactions */
+  rows.forEach(function(row){
+    var head=row.querySelector('.head');
+    var btn=row.querySelector('.star-btn');
+    var rr=row.querySelector('.rr');
+    head.addEventListener('click',function(e){
+      if(e.target===btn||btn.contains(e.target)){ return; }
+      row.classList.toggle('open');
+    });
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var on=store[row.id]!=='1';
+      store[row.id]=on?'1':'0'; save();
+      btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop');
+      paint();
+      say(on?'⭐ 已收藏这一句':'☆ 已取消收藏');
+    });
+    rr.addEventListener('click',function(e){
+      e.stopPropagation();
+      var t=rr.textContent;
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(function(){ say('📋 已复制：'+t); },
+          function(){ say('⚠️ 复制失败，可长按手动选择'); });
+      }else{ say('📋 '+t); }
+    });
+    var jump=row.querySelector('[data-jump]');
+    if(jump){
+      jump.addEventListener('click',function(e){
+        e.preventDefault();
+        var tgt=document.querySelector(jump.getAttribute('href'));
+        if(tgt){ tgt.classList.add('open'); tgt.scrollIntoView({block:'center'}); }
+      });
+    }
+  });
+  chk.addEventListener('change',applyFilter);
+  document.getElementById('expandall').addEventListener('click',function(){
+    var anyClosed=rows.some(function(r){ return !r.classList.contains('open')&&!r.classList.contains('hide'); });
+    rows.forEach(function(r){ if(!r.classList.contains('hide')){ r.classList.toggle('open',anyClosed); } });
+  });
+
+  load(); paint();
+})();
+</script>
+</body>
+</html>

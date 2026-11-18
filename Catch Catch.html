@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catch Catch · 歌词精读</title>
+<style>
+/* SECTION: base */
+*,*::before,*::after{box-sizing:border-box}
+:root{--paper:#faf5ec;--card:#fffdf8;--ink:#2c2a28;--sub:#6e6a64;--coral:#d95d3f;--coral-soft:#f3d9cf;--line:#e7dfd2;--star:#e8a800;--accent-bg:#fdf3e7;--zh:#7a7468}
+html{scroll-behavior:smooth;background:var(--paper)}
+body{margin:0;background:transparent;color:var(--ink);font-family:"PingFang SC","Microsoft YaHei","Segoe UI",sans-serif;line-height:1.6}
+.kr{font-family:"Malgun Gothic","Apple SD Gothic Neo","Noto Sans KR",sans-serif}
+header,main,footer{position:relative;z-index:1}
+/* SECTION: wallpaper */
+#wall{position:fixed;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+#wall span{position:absolute;user-select:none}
+/* SECTION: header */
+header{padding:26px 4px 6px}
+.backline{font-size:.82rem;margin:0 0 8px}
+.backline a{color:var(--coral);text-decoration:none}
+h1{margin:0;font-size:clamp(1.35rem,4.5vw,2rem);letter-spacing:.5px}
+h1 .en{color:var(--coral)}
+.meta{margin:10px 0 0;color:var(--sub);font-size:.85rem}
+.meta b{color:var(--ink);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{border:1px solid var(--line);background:var(--card);border-radius:999px;padding:8px 14px;font-size:.85rem;color:var(--ink);text-decoration:none;display:inline-flex;align-items:center;gap:7px}
+.chip::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--c,var(--sub))}
+.chip:hover{border-color:var(--c,#999)}
+button.chip{cursor:pointer;font:inherit}
+/* SECTION: toolbar */
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin:18px 0 8px;padding:12px 14px;background:var(--accent-bg);border:1px solid var(--line);border-radius:12px;font-size:.85rem;color:var(--sub)}
+.toolbar label{display:flex;align-items:center;gap:7px;cursor:pointer;color:var(--ink);user-select:none}
+.toolbar input[type=checkbox]{width:18px;height:18px;accent-color:var(--coral);cursor:pointer}
+.count{margin-left:auto;font-weight:700;color:var(--coral)}
+.legend{margin:8px 4px 20px;font-size:.79rem;color:var(--sub)}
+.key{display:inline-block;width:11px;height:11px;border-radius:3px;margin:0 4px -1px 10px;border:1px solid rgba(0,0,0,.08)}
+.k-word{background:#fbe7c9}.k-part{background:#d9e6f2}.k-tail{background:#e8ddf1}
+#emptystar{display:none;margin:14px 4px;padding:14px;border:1px dashed var(--line);border-radius:12px;background:var(--card);color:var(--sub);font-size:.86rem;text-align:center}
+body.onlystar #emptystar.show{display:block}
+/* SECTION: section heading */
+.sec{margin:30px 4px 10px;display:flex;align-items:baseline;gap:10px}
+.sec h2{margin:0;font-size:1.05rem;color:var(--c,var(--coral));white-space:nowrap}
+.sec span{font-size:.78rem;color:var(--sub)}
+.sec::after{content:"";flex:1;height:1px;background:var(--line);align-self:center;min-width:20px}
+.sec.hidesec{display:none}
+main{max-width:900px;margin:0 auto;padding:0 16px 64px}
+[data-sec=intro]{--c:#b08a2e}
+[data-sec=v1]{--c:#4a7fa5}
+[data-sec=pre1]{--c:#5c9e63}
+[data-sec=chorus]{--c:#d95d3f}
+[data-sec=v2]{--c:#8a5fa8}
+[data-sec=pre2]{--c:#c98a2e}
+[data-sec=bridge]{--c:#4a9a92}
+[data-sec=final]{--c:#c2648f}
+/* SECTION: rows */
+.row{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--c,var(--line));border-radius:12px;margin:8px 0;position:relative}
+.row.hide{display:none}
+.row::after{content:"";position:absolute;left:-4px;top:10%;bottom:10%;width:4px;border-radius:4px;background:var(--star);opacity:0;transition:opacity .2s}
+.row[data-star="1"]::after{opacity:.85}
+.head{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr) minmax(0,.92fr) 40px 40px;gap:8px;align-items:center;width:100%;border:0;background:none;padding:10px 10px 10px 14px;text-align:left;font:inherit;color:inherit}
+.head:hover{background:#fbf6ee}
+.kcol{display:flex;gap:8px;align-items:baseline;min-width:0}
+.idx{font-size:.72rem;color:var(--sub);flex:none;font-variant-numeric:tabular-nums}
+.krline{font-weight:700;font-size:1.02rem;color:#2e2b27;word-break:keep-all;overflow-wrap:anywhere}
+.rr{font-size:.8rem;color:#8a8378;font-family:ui-monospace,Consolas,"Courier New",monospace;overflow-wrap:anywhere;min-width:0;cursor:copy;background:#f3ede2;border-radius:6px;padding:2px 7px;border:1px solid #e6ddcc;justify-self:start;max-width:100%}
+.rr:hover{background:#ece3d2;border-color:#d8cbb4}
+.zh{font-size:.86rem;color:var(--zh);min-width:0}
+.star-btn{width:40px;height:40px;border:0;background:none;border-radius:9px;color:#cfc6b6;font-size:1.3rem;line-height:1;cursor:pointer;padding:0}
+.star-btn:hover{background:#f3ead9}
+.row[data-star="1"] .star-btn{color:var(--star)}
+.star-btn.pop{animation:starpop .34s ease}
+@keyframes starpop{0%{transform:scale(1)}40%{transform:scale(1.45) rotate(12deg)}100%{transform:scale(1)}}
+.chev{width:30px;height:30px;margin:5px;border-radius:50%;background:var(--accent-bg);color:var(--coral);display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:transform .22s;justify-self:end;flex:none}
+.row.open .chev{transform:rotate(90deg)}
+/* SECTION: detail card */
+.detail{display:grid;grid-template-rows:0fr;transition:grid-template-rows .28s ease}
+.row.open .detail{grid-template-rows:1fr}
+.detail-in{overflow:hidden;min-height:0}
+.dbody{padding:14px 16px 16px;border-top:1px dashed var(--line)}
+.detail h3{margin:12px 0 6px;font-size:.85rem;color:var(--c,var(--coral))}
+.detail h3:first-child{margin-top:0}
+.dgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:6px 0 12px}
+.dcell{border-radius:9px;padding:8px 10px;min-width:0;border:1px solid}
+.dcell b{display:block;font-size:1rem;font-weight:700;color:#2e2b27;margin-bottom:3px;word-break:keep-all}
+.dcell i{font-style:normal;color:var(--sub);font-size:.77rem}
+.dcell.c-word{background:#fdf3e0;border-color:#eeddc0}
+.dcell.c-part{background:#e9f0f7;border-color:#d4e0ec}
+.dcell.c-tail{background:#efe7f4;border-color:#ddcfe8}
+.detail ul{margin:4px 0 8px;padding-left:1.3em;font-size:.86rem}
+.detail li{margin:5px 0}
+.pron{background:#eef3ee;border:1px solid #d9e3d9;border-radius:9px;padding:8px 11px;font-size:.81rem;color:#33502f;margin:6px 0}
+.tag{display:inline-block;background:var(--coral-soft);color:#8c3a20;border-radius:5px;padding:1px 7px;font-size:.74rem;margin-right:5px;font-weight:600}
+/* SECTION: toast */
+#toast{position:fixed;left:50%;bottom:28px;transform:translateX(-50%) translateY(20px);background:#33302b;color:#fff;padding:9px 18px;border-radius:999px;font-size:.83rem;opacity:0;pointer-events:none;transition:.25s;z-index:5}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media (max-width:680px){
+.head{grid-template-columns:minmax(0,1fr) 40px 40px;row-gap:3px;padding-right:8px}
+.head .kcol,.rr,.zh{grid-column:1}
+.chev{grid-row:1;grid-column:2;align-self:center}
+.head .star-btn{grid-row:1;grid-column:3}
+.zh{padding-right:4px}
+}
+</style>
+</head>
+<body>
+
+<div id="wall" aria-hidden="true"></div>
+
+<!-- SECTION: header -->
+<header>
+  <p class="backline"><a href="index.html">← 返回歌单</a></p>
+  <h1>🎯 <span class="en">Catch Catch</span>（캐치 캐치）</h1>
+  <p class="meta">🎵 <b>YENA（최예나）</b> · 第五张迷你专辑《LOVE CATCHER》主打（2026.03.11）· 复古电音流行，"你追我赶"的恋爱捕捉游戏 · 歌词来源：eLyrics 全文 × Genius 罗马音交叉核实</p>
+  <nav class="chips" aria-label="段落导航">
+    <a class="chip" href="#sec-intro" data-sec="intro">🎺 Intro</a>
+    <a class="chip" href="#sec-v1" data-sec="v1">🐾 Verse 1</a>
+    <a class="chip" href="#sec-pre1" data-sec="pre1">⚡ Pre-Chorus</a>
+    <a class="chip" href="#sec-chorus" data-sec="chorus">🏹 Chorus</a>
+    <a class="chip" href="#sec-v2" data-sec="v2">🐻 Verse 2</a>
+    <a class="chip" href="#sec-pre2" data-sec="pre2">👄 Pre-Chorus 2</a>
+    <a class="chip" href="#sec-bridge" data-sec="bridge">💌 Bridge</a>
+    <a class="chip" href="#sec-final" data-sec="final">🎯 Final Chorus</a>
+  </nav>
+  <div class="toolbar">
+    <label><input type="checkbox" id="fstar">⭐ 只看我标的句</label>
+    <button class="chip" type="button" id="expandall" style="--c:#8a8378">📖 全部展开 / 收起</button>
+    <span class="count" id="cnt">已标 0 句</span>
+  </div>
+  <p class="legend">📋 点击行右侧 <b>★</b> 收藏这句（存本机浏览器）· 点击灰色罗马音可直接复制 · 展开后：逐块拆解 <span class="key k-word"></span>词块 <span class="key k-part"></span>助词 <span class="key k-tail"></span>词尾 ＋ 词汇语法＋发音 ｜ 本曲为 <b>해요体敬语</b>＋俏皮缩略混用，与《最讨厌善良这句话》的纯반말对照着学最有效</p>
+  <div id="emptystar">还没有收藏任何句子 🐣 —— 点一行右侧的 ★ 就能把它加进来。</div>
+</header>
+
+<main>
+
+<!-- SECTION: intro -->
+<div class="sec" id="sec-intro" data-sec="intro"><h2>🎺 Intro / Refrain</h2><span>洗脑钩子段</span></div>
+
+<div class="row" id="c1" data-sec="intro">
+  <div class="head">
+    <span class="kcol"><span class="idx">01</span><span class="krline kr">Hey, catch my heart ／ Ca-ca-catch my heart, baby</span></span>
+    <span class="rr">hey catch my heart</span><span class="zh">嘿，接住我的心</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">catch my heart</b><i>英语祈使句"接住我的心"</i></div>
+    </div>
+    <h3>🔍 讲解</h3>
+    <ul>
+      <li>全曲主题句：heart＝捕物（抓娃娃机式恋爱），后面韩语段都在演"接不住就 up down"。</li>
+      <li>Ca-ca-catch 的结巴式重复是二代女团（T-ARA 系）复古钩子写法，YENA 本次回归的致敬点。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="row" id="c2" data-sec="intro">
+  <div class="head">
+    <span class="kcol"><span class="idx">02</span><span class="krline">Da-da-ra-da-da ×4（副歌间奏，全部归并）</span></span>
+    <span class="rr">da-da-ra-da-da</span><span class="zh">哒哒哒（拟声钩子）</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <ul>
+      <li>纯拟声段，全曲出现 4 次（Refrain／Interlude／Outro），此处一张卡说明，后文不再重复。</li>
+      <li>听歌时它就是"心跳起搏器"——接下一段的 up down。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<!-- SECTION: verse1 -->
+<div class="sec" id="sec-v1" data-sec="v1"><h2>🐾 Verse 1</h2><span>反差人设 · "别小看我"</span></div>
+
+<div class="row" id="c3" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">03</span><span class="krline kr">겉으로 봐서는 날 몰라요 (Woah)</span></span>
+    <span class="rr">geoteuro bwaneuneun nal moryoyo</span><span class="zh">光看外表你是猜不透我的（Woah）</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-part"><b class="kr">겉으로</b><i>外表＋로"凭、就…而言"</i></div>
+      <div class="dcell c-tail"><b class="kr">봐서는</b><i>보다+아서+는"光是看的话"</i></div>
+      <div class="dcell c-part"><b class="kr">날</b><i>=나를 我（宾格）</i></div>
+      <div class="dcell c-word"><b class="kr">몰라요</b><i>모르다 不懂（해요体）</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">-아/어서는</b> 表条件强调："光是…就（不行）"，比 -면 更带"仅此一项足矣"的口气。</li>
+      <li>本曲第一处敬语信号：몰라요（-아요）。와《最讨厌善良这句话》的 몰라 对照——同一动词，两种人设：那首是撒娇控诉，这首是俏皮自夸 😏。</li>
+    </ul>
+    <p class="pron">🔊 发音：봐서는 [봐서는]；몰라요 [몰라요] 正常连音。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c4" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">04</span><span class="krline kr">커다란 나무도 잘 올라요 (Woah)</span></span>
+    <span class="rr">keodaran namudo jar ollarayo</span><span class="zh">连好大的树我也爬得上（Woah）</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">커다란</b><i>커다랗다 巨大的＋-ㄴ</i></div>
+      <div class="dcell c-part"><b class="kr">나무도</b><i>树＋도"连…也"</i></div>
+      <div class="dcell c-word"><b class="kr">잘</b><i>副词"擅长地"</i></div>
+      <div class="dcell c-tail"><b class="kr">올라요</b><i>오르다 爬＋-아요</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>⚠️ <b class="kr">커다랗다</b> 是 ㅅ+ㅎ 双料不规则：接辅音起头时 ㅎ 脱落（커다란 [커다란]），词典形末尾看着像 커닫-</li>
+      <li><b class="kr">잘＋动词</b>＝做得好/擅长，与 못＋动词 互为反义（《最讨厌》的 잡지도 못해）。</li>
+      <li><b class="kr">오르다</b>  르不规则：르+아→ㄹ라，所以是 올라요 不是一러요。</li>
+    </ul>
+    <p class="pron">🔊 发音：올라요 [올라요]；나무도 [나모도]（ㄴ前ㅁ→ㄴ 不触发，保持）。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c5" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">05</span><span class="krline kr">시력은 얼마나 또 좋게요</span></span>
+    <span class="rr">siryeoneun eolmana tto jokeyo</span><span class="zh">视力嘛又到底有多好（超能看清哦）</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">시력은</b><i>视力（汉字词：視力）</i></div>
+      <div class="dcell c-word"><b class="kr">얼마나</b><i>多么、到底…</i></div>
+      <div class="dcell c-word"><b class="kr">또</b><i>又、还</i></div>
+      <div class="dcell c-tail"><b class="kr">좋게요</b><i>좋다 好＋俏皮敬语尾</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>承接上句：会爬树＋视力超好＝"我什么都看得一清二楚"的小得意。</li>
+      <li>⚠️ 平台文本此处作 좋게요，属刻意卖萌的变形（正常敬语是 좋아요/좋은데），各站偶有出入，演唱听感为俏皮拖音。</li>
+    </ul>
+    <p class="pron">🔊 发音：시력 [시령]，ㄹ 收音实际读 [r] 近 l；얼마나 [얼마나]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c6" data-sec="v1">
+  <div class="head">
+    <span class="kcol"><span class="idx">06</span><span class="krline kr">완전 good (Woah), 다 알랑가 몰라 (Oh)</span></span>
+    <span class="rr">wanjeon good da argangga molla</span><span class="zh">完全 good（Woah），你猜得到才怪（Oh）</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">완전</b><i>完全（汉字：完全，副词用）</i></div>
+      <div class="dcell c-word"><b class="kr">다</b><i>全部、全都</i></div>
+      <div class="dcell c-tail"><b class="kr">알랑가</b><i>=알까（庆尚方言疑问尾）</i></div>
+      <div class="dcell c-word"><b class="kr">몰라</b><i>모르다 반말</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">🗣 方言梗</span><b class="kr">-랑가</b>＝-ㄹ까 的庆尚道说法（吃面＝국수랑가 之类），经综艺出圈后被全国年轻人拿来做俏皮话。다 알랑가 몰라＝"你以为你全知道？"——本句突然从敬语切 반말，是 YENA 式的小狡黠。</li>
+    </ul>
+    <p class="pron">🔊 发音：알랑가 [알랑가]；몰라 [몰라]。</p>
+  </div></div></div>
+</div>
+
+<!-- SECTION: pre1 -->
+<div class="sec" id="sec-pre1" data-sec="pre1"><h2>⚡ Pre-Chorus</h2><span>心动信号弹</span></div>
+
+<div class="row" id="c7" data-sec="pre1">
+  <div class="head">
+    <span class="kcol"><span class="idx">07</span><span class="krline kr">Oh-oh, 살짝쿵, oh-oh, 느낌 왔지</span></span>
+    <span class="rr">saljjakkung neukkim watji</span><span class="zh">心跳稍微咚了一下，感觉来了吧</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">살짝쿵</b><i>살짝＋쿵 造词"悄悄咚"</i></div>
+      <div class="dcell c-word"><b class="kr">느낌</b><i>感觉（느끼다→느낌）</i></div>
+      <div class="dcell c-tail"><b class="kr">왔지</b><i>오다＋-았지"来了吧"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">-ㅁ 名词化</b>：动词词干＋ㅁ＝名词（느끼다→느낌 感觉、마루→？不举例），与 -기（《辞职》일주하기）并列为两大名词化词尾。</li>
+      <li><b class="kr">살짝쿵</b>：副词 살짝（轻轻地）＋拟声 쿵 的可爱合成，近年 SNS 流行构词（"心动轻轻地咚"）。</li>
+    </ul>
+    <p class="pron">🔊 发音：살짝 [살짝]；왔지 [왔찌]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c8" data-sec="pre1">
+  <div class="head">
+    <span class="kcol"><span class="idx">08</span><span class="krline kr">Oh-oh, 무표정한 얼굴도 재밌네</span></span>
+    <span class="rr">mupyojeonghan eolguldo jaemimne</span><span class="zh">面无表情的那张脸也好好玩哦</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">무표정한</b><i>无表情（汉字：無表情）＋-한</i></div>
+      <div class="dcell c-word"><b class="kr">얼굴도</b><i>脸（固有词）＋도</i></div>
+      <div class="dcell c-tail"><b class="kr">재밌네</b><i>재밌다＋-네 感叹</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">🆕 新语气尾 -네</span>：说话人<b>现场发出的感叹</b>"…真…啊呢"（재밌네 真好玩哦）。对照已学的 <b class="kr">-잖아</b>（"不是…嘛"，对方也该知道）——네 是自言自语，잖아 是怼对方。</li>
+      <li><b class="kr">무-</b> 否定接头词（"无…"）：무표정 无表情、무서워 里的 무서 与之无关（固有词），但 무料리/무관심 都是它。</li>
+      <li>재밌다 ＝ 재미＋있다 的口语缩略，"有趣"。</li>
+    </ul>
+    <p class="pron">🔊 发音：재밌네 [재민네]，ㅂ 收音+ㄴ 鼻音化。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c9" data-sec="pre1">
+  <div class="head">
+    <span class="kcol"><span class="idx">09</span><span class="krline kr">Oh-oh, 찌릿해, oh-oh, 딱 걸렸지</span></span>
+    <span class="rr">jjirithe ttak georyeotji</span><span class="zh">滋啦电到了，被你逮个正着吧</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">찌릿해</b><i>찌릿하다 刺痛/来电感</i></div>
+      <div class="dcell c-word"><b class="kr">딱</b><i>正好、整个儿（复现词）</i></div>
+      <div class="dcell c-tail"><b class="kr">걸렸지</b><i>걸리다 被抓＋-었지</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">걸리다</b>：잡히다 系"被逮住/中招"（경찰에 걸리다 被警察抓到；마수에 걸리다 中魔法）。딱 걸렸지＝"彻底中招了"，心动＝作案被抓 🚔。</li>
+      <li>딱 第三次复现（364 하루만 딱／本曲 눈 감고 딱／우산은 놓고 올걸 语境），"牢牢贴中"是它的核心意象。</li>
+    </ul>
+    <p class="pron">🔊 发音：걸렸지 [걸렀찌]，ㄷ  irregular＋ㅈ 紧化。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c10" data-sec="pre1">
+  <div class="head">
+    <span class="kcol"><span class="idx">10</span><span class="krline kr">서로 눈이 말이야</span></span>
+    <span class="rr">soro nuni marira</span><span class="zh">彼此的眼睛在说话呀</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">서로</b><i>互相（固有词）</i></div>
+      <div class="dcell c-part"><b class="kr">눈이</b><i>眼睛＋主格</i></div>
+      <div class="dcell c-word"><b class="kr">말이야</b><i>=말이다"就是'话'"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>直译"眼神就是话语"—— 눈이 말을 하다（眼睛在说话）的断句萌化版：서로 눈이, 말이야。</li>
+      <li>말（话）是高频复现：착하다는 말／그런 말 따위야／할까 那句 말／本句——同一个固有词撑起了你歌单里一半的标题。</li>
+    </ul>
+    <p class="pron">🔊 发音：눈이 [누니] 连音。</p>
+  </div></div></div>
+</div>
+
+<!-- SECTION: chorus -->
+<div class="sec" id="sec-chorus" data-sec="chorus"><h2>🏹 Chorus</h2><span>爱之丘比特 · 核心段</span></div>
+
+<div class="row" id="c11" data-sec="chorus">
+  <div class="head">
+    <span class="kcol"><span class="idx">11</span><span class="krline kr">심장이 up, down, down, 또 up, down</span></span>
+    <span class="rr">simjangi up down tto up down</span><span class="zh">心脏 up, down, down, 又 up, down</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">심장이</b><i>心脏（固有词）＋主格</i></div>
+      <div class="dcell c-word"><b class="kr">또</b><i>又、再</i></div>
+    </div>
+    <h3>🔍 讲解</h3>
+    <ul>
+      <li>심장＝心脏（固有词，汉字"心"读 심 但 심장 整体不加汉字）。up down 借英语做上下颠簸的拟态，副歌全段的中枢。</li>
+    </ul>
+    <p class="pron">🔊 发音：심장이 [심장이]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c12" data-sec="chorus">
+  <div class="head">
+    <span class="kcol"><span class="idx">12</span><span class="krline kr">사랑의 화살을 당겨 봐</span></span>
+    <span class="rr">sarangui hwasareul danggyeo bwa</span><span class="zh">把爱的箭拉弓试试嘛</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-part"><b class="kr">사랑의</b><i>爱（汉字：愛情）＋的</i></div>
+      <div class="dcell c-word"><b class="kr">화살을</b><i>箭（汉字：火箭之"矢"？→ 화살 本字无汉字，固有词）</i></div>
+      <div class="dcell c-tail"><b class="kr">당겨 봐</b><i>당기다 拉＋-어 봐 试试</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">🆕 -아/어 봐</span>＝-아/어 보다 的命令式"试试看"（먹어 봐 你吃吃看）。与已学的 -아/어 보다（해본 것도 试过）同族：原型表经验，命令式表鼓励。</li>
+      <li><b class="kr">당기다</b>＝拉、拽（弓弦、袖子）；화살 丘比特之箭的恋爱比喻。</li>
+      <li>注意：화살 是固有词，不带汉字（火箭＝로켓 外来语），别按"火矢"记。</li>
+    </ul>
+    <p class="pron">🔊 发音：당겨 봐 [당겨 봐]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c13" data-sec="chorus">
+  <div class="head">
+    <span class="kcol"><span class="idx">13</span><span class="krline kr">이러다 놓치겠어, catch, catch</span></span>
+    <span class="rr">ireoda nochigesseo</span><span class="zh">再这样下去你要错过咯，catch, catch</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">이러다</b><i>这样下去（이렇게 하다缩略）</i></div>
+      <div class="dcell c-word"><b class="kr">놓치겠어</b><i>놓치다 错过＋-겠</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">-겠</b>＝推测"快要…"（区别于 결심의 -겠 "我打算…"：본다 这里读感是警告式推测）。</li>
+      <li><b class="kr">놓치다</b>＝놓다＋치 复合"错放、放过机会"；与《It was love》"놓친 그 손도"（松开的手）同源复现——那首是已经错过，这首是"别错过我"。</li>
+      <li>이러다(가)＋结果句：拖拖拉拉就会怎样，口语万能句式。</li>
+    </ul>
+    <p class="pron">🔊 发音：놓치겠어 [놋치꺼]。</p>
+  </div></div></div>
+</div>
+
+<!-- SECTION: verse2 -->
+<div class="sec" id="sec-v2" data-sec="v2"><h2>🐻 Verse 2</h2><span>动物塑 · 熊和狐狸</span></div>
+
+<div class="row" id="c14" data-sec="v2">
+  <div class="head">
+    <span class="kcol"><span class="idx">14</span><span class="krline kr">곰이랑 여우 둘 다 닮았죠 (Ooh, ooh)</span></span>
+    <span class="rr">gomi-rang yeou dul da dalmatjyo</span><span class="zh">像熊又像狐狸，两个都像吧（Ooh, ooh）</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">곰이랑</b><i>熊＋이랑"和…"</i></div>
+      <div class="dcell c-word"><b class="kr">여우</b><i>狐狸</i></div>
+      <div class="dcell c-word"><b class="kr">둘 다</b><i>两个都</i></div>
+      <div class="dcell c-tail"><b class="kr">닮았죠</b><i>닮다 像＋-았죠</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">-이랑</b>＝-와/과 的口语（《364》엄마랑·너랑 的 랑，这里词干无收音所以이랑）。</li>
+      <li><b class="kr">-죠</b>＝-지＋요 的软化敬语（对吧／您看嘛）；닮다 只用于长相气质"像"。</li>
+      <li>熊（憨）＋狐狸（狡黠）＝"又乖又坏"的反差宣言，对上 Verse 1 的"别看外表"。</li>
+    </ul>
+    <p class="pron">🔊 发音：닮았죠 [달맟쬬]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c15" data-sec="v2">
+  <div class="head">
+    <span class="kcol"><span class="idx">15</span><span class="krline kr">꼬리도 있어요, 참 예쁘죠 (Ooh, ooh)</span></span>
+    <span class="rr">kkorido isseoyo cham yeppeujyo</span><span class="zh">还有尾巴哦，很漂亮吧（Ooh, ooh）</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">꼬리도</b><i>尾巴＋도</i></div>
+      <div class="dcell c-word"><b class="kr">있어요</b><i>存在"有"（해요体）</i></div>
+      <div class="dcell c-word"><b class="kr">참</b><i>真、挺（副词）</i></div>
+      <div class="dcell c-tail"><b class="kr">예쁘죠</b><i>예쁘다＋-죠</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>참 第二次复现（第01句 참 착하다는＝真的），这里"참 예쁘죠 挺好看的吧"——它比 정말 更轻、更自言自语。</li>
+      <li>있어요：存在动词 있다 的 해요体；对照《It was love》기억나?（반말）——敬语和반말在 YENA 嘴里按需切换卖萌。</li>
+    </ul>
+    <p class="pron">🔊 发音：있어요 [이써요]；꼬리도 [꼬리도]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c16" data-sec="v2">
+  <div class="head">
+    <span class="kcol"><span class="idx">16</span><span class="krline kr">동그랗게 눈을 뜨면 반칙인데 참는 거라구</span></span>
+    <span class="rr">donggeulate nuneul tteumyeon benchikinde chamneun goragu</span><span class="zh">眼睛圆圆瞪起来就犯规啦，可我正忍着呢</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-tail"><b class="kr">동그랗게</b><i>圆圆地（-게 副词化）</i></div>
+      <div class="dcell c-tail"><b class="kr">뜨면</b><i>뜨다 睁＋-면 如果</i></div>
+      <div class="dcell c-word"><b class="kr">반칙인데</b><i>犯规（反則）＋-인데</i></div>
+      <div class="dcell c-tail"><b class="kr">참는 거라구</b><i>참다＋는 것＋라고</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><span class="tag">🆕 -라구</span>＝-라고 的撒娇音变（引用/解释"人家说…嘛"）。거라구 = 것이라고→거라고 再萌化。</li>
+      <li>반칙＝反則（汉字词），K-pop 高频：可爱到犯规。</li>
+      <li><b class="kr">참다</b> 第四次复现（꾹 참을래도→체할 뻔→참는 거라구）——从"忍委屈"进化到"憋萌"。</li>
+    </ul>
+    <p class="pron">🔊 发音：동그랗게 [동그랗게]；뜨면 [뜨면]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c17" data-sec="v2">
+  <div class="head">
+    <span class="kcol"><span class="idx">17</span><span class="krline kr">(Ooh, woah) Say, "Yellow C-A-R-D"</span></span>
+    <span class="rr">yellow card</span><span class="zh">（Ooh, woah）喊出："Yellow 警告牌"</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <ul>
+      <li>拼读梗：C-A-R-D 逐个字母喊（读卡片＝摊牌）。Yellow card 借足球黄牌/Uno 牌的"警告一次"，意思是"我的心动信号已经亮牌了，你再装不知道就吃牌" 🟨。</li>
+      <li>⚠️ 语义偏意象化解读，官方未给逐字解释。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<!-- SECTION: pre2 -->
+<div class="sec" id="sec-pre2" data-sec="pre2"><h2>👄 Pre-Chorus 2</h2><span>明示信号 · "快发现我"</span></div>
+
+<div class="row" id="c18" data-sec="pre2">
+  <div class="head">
+    <span class="kcol"><span class="idx">18</span><span class="krline kr">Oh-oh, 입술 쭉, oh-oh, 티를 내 봐?</span></span>
+    <span class="rr">ipsul jjuk tireul nae bwa</span><span class="zh">嘴巴撅起来，把心思露出来看看？</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">입술 쭉</b><i>嘴唇＋쭉"笔直/整个"</i></div>
+      <div class="dcell c-word"><b class="kr">티를</b><i>痕迹、苗头（固有词）</i></div>
+      <div class="dcell c-tail"><b class="kr">내 봐?</b><i>내다＋-어 봐"试着露出"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">티를 내다</b> 固定搭配＝把心思摆在脸上（티＝痕迹、苗头）。"嘟嘴这么明显，就差把喜欢写脸上了吧？"</li>
+      <li><b class="kr">쭉</b>：副词，"猛地/直直地"，입술 쭉＝嘴唇一撅到底的画面感。</li>
+      <li>-어 봐 第二次出现（당겨 봐 之后），疑问升调变成怂恿："要不要试试明显一点？"</li>
+    </ul>
+    <p class="pron">🔊 发音：입술 [입쭐]（ㄹ 后 ㅅ 读紧 ㅆ→实际为侧音化 입쓸→[입쭐]）。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c19" data-sec="pre2">
+  <div class="head">
+    <span class="kcol"><span class="idx">19</span><span class="krline kr">Oh-oh, 이 정도면 눈치 좀 챘을까?</span></span>
+    <span class="rr">i jeongdomyeon nunchi jom chaesseulkka</span><span class="zh">都到这份上了，你该察觉一点了吧？</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">이 정도면</b><i>这个程度＋면"都这样了"</i></div>
+      <div class="dcell c-word"><b class="kr">눈치</b><i>眼色（固有词）</i></div>
+      <div class="dcell c-tail"><b class="kr">챘을까?</b><i>채다＋-았-+-ㄹ까</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">눈치채다</b>＝察觉、看破（韩国职场生存必备动词 눈치+채다）。</li>
+      <li><span class="tag">问句家族+1</span>-았/었을 까：对<b>已发生</b>的推测自问"该察觉了吧"。与 할까（将来）／받는 걸까（现在）／언제부터였을까（过去事实）集齐四时态。</li>
+    </ul>
+    <p class="pron">🔊 发音：챘을까 [채쓸꺼]。</p>
+  </div></div></div>
+</div>
+
+<div class="row" id="c20" data-sec="pre2">
+  <div class="head">
+    <span class="kcol"><span class="idx">20</span><span class="krline kr">Oh-oh, 어머나, oh-oh, 딱 걸렸지</span></span>
+    <span class="rr">eomeona ttak georyeotji</span><span class="zh">哎呀，被你逮个正着啦</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">어머나</b><i>感叹"哎呀"</i></div>
+      <div class="dcell c-word"><b class="kr">딱 걸렸지</b><i>（复现 c9）中招啦</i></div>
+    </div>
+    <h3>🔍 讲解</h3>
+    <ul>
+      <li>어머나＝어머 的加料版（天呐），感叹词＋딱 걸렸지 呼应结构：第一段 Pre-Chorus 是"你被我电到"，第二段轮到"我被你抓到"——主客对调，恋爱攻防易手 🔁。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="row" id="c21" data-sec="pre2">
+  <div class="head">
+    <span class="kcol"><span class="idx">21</span><span class="krline kr">네 진심을 말이야</span></span>
+    <span class="rr">ne jinsimeun mariya</span><span class="zh">我说的是你的真心话呀</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">네</b><i>你的（너의）</i></div>
+      <div class="dcell c-word"><b class="kr">진심을</b><i>真心（汉字：真心）</i></div>
+      <div class="dcell c-tail"><b class="kr">말이야</b><i>"…说的是"</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>진심＝真心（汉字词，真心话），与假装的信号相对——"抓到的是你真心"。말이야 收尾＝强调"我指的是…"（《最讨厌》나 좀 봐달란 말야 同族）。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<!-- SECTION: bridge -->
+<div class="sec" id="sec-bridge" data-sec="bridge"><h2>💌 Bridge</h2><span>直球宣言</span></div>
+
+<div class="row" id="c22" data-sec="bridge">
+  <div class="head">
+    <span class="kcol"><span class="idx">22</span><span class="krline kr">Yeah, 예나 지금이나 맘을 꼭꼭</span></span>
+    <span class="rr">yena jigeumina mameul kkokkkok</span><span class="zh">从前到现在，把心藏得严严实实</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">예나 지금이나</b><i>惯用语"从前如今都"</i></div>
+      <div class="dcell c-word"><b class="kr">맘을</b><i>=마음을 心</i></div>
+      <div class="dcell c-word"><b class="kr">꼭꼭</b><i>严严实实地（重叠副词）</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">예나 지금이나</b>：固定句式"A이든 B이든都一样"（-나 = -(이)나 选择助词"还是"）。예（昔）+나 지금+이나＝"过去现在，从来如此"。</li>
+      <li>重叠副词家族：꾹꾹（死忍）→ 꼭꼭（死藏）——同一构词法：单字副词×2，程度翻倍。</li>
+      <li>彩蛋：예나 撞名 YENA，"从前如今"里藏着艺名，粉丝向双关。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="row" id="c23" data-sec="bridge">
+  <div class="head">
+    <span class="kcol"><span class="idx">23</span><span class="krline kr">숨기는 걸 못해 참</span></span>
+    <span class="rr">sumgineun geor morae cham</span><span class="zh">藏不住嘛，真的</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">숨기는</b><i>숨기다 藏＋-는</i></div>
+      <div class="dcell c-tail"><b class="kr">걸</b><i>=것（宾语）</i></div>
+      <div class="dcell c-tail"><b class="kr">못해</b><i>-지 못하다 不能（缩）</i></div>
+      <div class="dcell c-word"><b class="kr">참</b><i>真的、哎</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>动词+는 걸 못하다 ＝"没法做…"：숨기는 걸 못해＝藏不住。比 -지 못해 更口语、更喘一口气的说法。</li>
+      <li>참 第三次复现（真善良→真好笑→真藏不住），尾缀 참＝"哎，真是的"。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="row" id="c24" data-sec="bridge">
+  <div class="head">
+    <span class="kcol"><span class="idx">24</span><span class="krline kr">그게 난 맘에 드는 걸</span></span>
+    <span class="rr">geuge nan mame deuneun geol</span><span class="zh">我就是喜欢那样啊</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">그게</b><i>那样东西（那个+主格）</i></div>
+      <div class="dcell c-word"><b class="kr">난</b><i>=나에겐"对我来说"</i></div>
+      <div class="dcell c-word"><b class="kr">맘에 드는</b><i>마음에 들다 中意</i></div>
+      <div class="dcell c-tail"><b class="kr">걸</b><i>感叹尾=것</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">마음에 들다</b> 固定搭配＝中意、喜欢（心进入）。否定反义：마음에 안 들다。</li>
+      <li>结尾 걸 ＝感叹型 것（同《最讨厌》아픈걸"好疼啊"），不是 ~ㄹ걸 后悔——"就是喜欢嘛，怎么啦"理直气壮的甜。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<!-- SECTION: final -->
+<div class="sec" id="sec-final" data-sec="final"><h2>🎯 Final Chorus</h2><span>最后一投</span></div>
+
+<div class="row" id="c25" data-sec="final">
+  <div class="head">
+    <span class="kcol"><span class="idx">25</span><span class="krline kr">심장이 up, down, down, 또 up, down (Ow)</span></span>
+    <span class="rr">simjangi up down tto up down</span><span class="zh">心脏 up, down, down, 又 up, down（Ow）</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <ul><li>与第 11 句同段（讲解见 c11），末段加 (Ow) 心跳过载音效。</li></ul>
+  </div></div></div>
+</div>
+
+<div class="row" id="c26" data-sec="final">
+  <div class="head">
+    <span class="kcol"><span class="idx">26</span><span class="krline kr">눈 감고 딱 한 번 당겨 봐</span></span>
+    <span class="rr">nun gamgo ttak han beon danggyeo bwa</span><span class="zh">闭上眼，就拉一次试试看</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">눈 감고</b><i>眼＋闭（감다）＋-고</i></div>
+      <div class="dcell c-word"><b class="kr">딱 한 번</b><i>就一次（한 번）</i></div>
+      <div class="dcell c-tail"><b class="kr">당겨 봐</b><i>拉＋试试（复现）</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li>감다 多义词：闭眼（눈을 감다）／卷／缠绕，这里取"闭"。</li>
+      <li>한 번（一次）复现自《It was love》"한 번 더"——固有词数词 한＋回。</li>
+      <li>闭眼放箭＝丘比特规则：不许瞄准，全凭心动，赌一把浪漫 🎯。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+<div class="row" id="c27" data-sec="final">
+  <div class="head">
+    <span class="kcol"><span class="idx">27</span><span class="krline kr">이번엔 맞춰 봐 꼭 catch, catch</span></span>
+    <span class="rr">ibeonen machwo bwa kkwak</span><span class="zh">这次给我命中哦，一定要 catch, catch</span>
+    <span class="chev">›</span>
+    <button class="star-btn" type="button" aria-pressed="false" aria-label="收藏这句">★</button>
+  </div>
+  <div class="detail"><div class="detail-in"><div class="dbody">
+    <div class="dgrid">
+      <div class="dcell c-word"><b class="kr">이번엔</b><i>这次＋은</i></div>
+      <div class="dcell c-tail"><b class="kr">맞춰 봐</b><i>맞추다 命中＋试试</i></div>
+      <div class="dcell c-word"><b class="kr">꼭</b><i>一定（复现词）</i></div>
+    </div>
+    <h3>🔍 词汇与语法</h3>
+    <ul>
+      <li><b class="kr">맞추다</b>＝对上、命中（与 앞뒤 안 맞다 的 맞다 同族：안 맞다 对不上→맞춰 对准它）。第三次 -어 봐，从"试着拉"升级到"试着中"。</li>
+      <li>꼭 复现（《364》꼭 달라붙어서／本曲 꼭꼭）——"一定"是 YENA 的执念副词。</li>
+      <li>收束句把全曲的 catch 从"接住"翻成"命中"：丘比特闭环 🏹💘。</li>
+    </ul>
+  </div></div></div>
+</div>
+
+</main>
+
+<footer style="max-width:900px;margin:36px auto 0;padding:16px 20px 40px;border-top:1px solid #e7dfd2;font-size:.76rem;color:#6e6a64;line-height:1.8">
+  <p>🐣 本页面仅作韩语学习用途；歌词版权归原作者及唱片公司所有。</p>
+</footer>
+
+<div id="toast" role="status"></div>
+
+<!-- SECTION: script -->
+<script>
+(function(){
+  /* SECTION: egg wallpaper */
+  var wall=document.getElementById('wall');
+  var eggs=[
+    [4,7,28,.10,-12,'🐣'],[68,10,20,.08,10,'🎯'],[26,15,16,.07,-6,'🏹'],[86,18,30,.09,12,'🐣'],
+    [10,31,22,.08,8,'🐻'],[52,27,16,.07,-12,'🦊'],[79,35,18,.08,4,'🐣'],[6,46,30,.09,-8,'🎯'],
+    [40,43,16,.07,14,'🐣'],[64,49,24,.08,-10,'🏹'],[20,57,18,.07,12,'🐥'],[90,54,16,.07,-4,'🦊'],
+    [13,68,28,.09,10,'🐣'],[47,65,14,.06,-14,'🎯'],[73,72,22,.08,6,'🏹'],[4,77,16,.07,-8,'🐥'],
+    [31,82,24,.08,14,'🐣'],[60,86,18,.07,-6,'🎯'],[83,90,28,.09,8,'🐣'],[16,92,14,.06,10,'🦊'],
+    [44,94,22,.07,-10,'🐣'],[70,96,16,.06,12,'🏹']
+  ];
+  eggs.forEach(function(e){
+    var s=document.createElement('span');
+    s.textContent=e[5];
+    s.style.left=e[0]+'%'; s.style.top=e[1]+'%';
+    s.style.fontSize=e[2]+'px'; s.style.opacity=e[3];
+    s.style.transform='rotate('+e[4]+'deg)';
+    wall.appendChild(s);
+  });
+
+  /* SECTION: storage */
+  var KEY='yena-catchcatch-stars-v1';
+  var rows=[].slice.call(document.querySelectorAll('.row'));
+  var secs=[].slice.call(document.querySelectorAll('.sec'));
+  var chk=document.getElementById('fstar');
+  var cnt=document.getElementById('cnt');
+  var empty=document.getElementById('emptystar');
+  var store={};
+  function load(){ try{ var v=localStorage.getItem(KEY); if(v){store=JSON.parse(v)||{};} }catch(e){ store={}; } }
+  function save(){ try{ localStorage.setItem(KEY,JSON.stringify(store)); }catch(e){} }
+
+  /* SECTION: toast */
+  var toast=document.getElementById('toast'),tt=null;
+  function say(msg){ toast.textContent=msg; toast.classList.add('show');
+    clearTimeout(tt); tt=setTimeout(function(){toast.classList.remove('show')},1400); }
+
+  /* SECTION: render state */
+  function paint(){
+    var n=0;
+    rows.forEach(function(r){
+      var on=store[r.id]==='1';
+      r.setAttribute('data-star',on?'1':'0');
+      var btn=r.querySelector('.star-btn');
+      if(btn){ btn.setAttribute('aria-pressed',on?'true':'false'); }
+      if(on){ n++; }
+    });
+    cnt.textContent='⭐ 已标 '+n+' / 共 '+rows.length+' 句';
+    applyFilter();
+  }
+  function applyFilter(){
+    var only=chk.checked;
+    document.body.classList.toggle('onlystar',only);
+    var vis=0;
+    rows.forEach(function(r){
+      var on=store[r.id]==='1';
+      r.classList.toggle('hide',only&&!on);
+      if(!(only&&!on)){ vis++; }
+    });
+    empty.classList.toggle('show',only&&vis===0);
+    secs.forEach(function(s){
+      var has=false;
+      rows.forEach(function(r){
+        var sec=null;
+        var p=r.previousElementSibling;
+        while(p){ if(p.classList&&p.classList.contains('sec')){sec=p;break;} p=p.previousElementSibling; }
+        if(sec===s&&!r.classList.contains('hide')){ has=true; }
+      });
+      s.classList.toggle('hidesec',only&&!has);
+    });
+  }
+
+  /* SECTION: interactions */
+  rows.forEach(function(row){
+    var head=row.querySelector('.head');
+    var btn=row.querySelector('.star-btn');
+    var rr=row.querySelector('.rr');
+    head.addEventListener('click',function(e){
+      if(e.target===btn||btn.contains(e.target)){ return; }
+      row.classList.toggle('open');
+    });
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      var on=store[row.id]!=='1';
+      store[row.id]=on?'1':'0'; save();
+      btn.classList.remove('pop'); void btn.offsetWidth; btn.classList.add('pop');
+      paint();
+      say(on?'⭐ 已收藏这一句':'☆ 已取消收藏');
+    });
+    rr.addEventListener('click',function(e){
+      e.stopPropagation();
+      var t=rr.textContent;
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(t).then(function(){ say('📋 已复制：'+t); },
+          function(){ say('⚠️ 复制失败，可长按手动选择'); });
+      }else{ say('📋 '+t); }
+    });
+  });
+  chk.addEventListener('change',applyFilter);
+  document.getElementById('expandall').addEventListener('click',function(){
+    var anyClosed=rows.some(function(r){ return !r.classList.contains('open')&&!r.classList.contains('hide'); });
+    rows.forEach(function(r){ if(!r.classList.contains('hide')){ r.classList.toggle('open',anyClosed); } });
+  });
+
+  load(); paint();
+})();
+</script>
+</body>
+</html>
